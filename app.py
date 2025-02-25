@@ -1,7 +1,6 @@
 from flask import Flask, request, jsonify
 
 from config import Config
-#import psycopg2
 from services.service import Service
 from extensions import db
 import utils
@@ -19,24 +18,6 @@ db.init_app(app)
 def shutdown_session(exception=None):
     db.session.remove()
 
-'''
-1. Get a single book by id:
-Return details of a specific book.
-2. Get books:
-a. Optional parameters to filter books based on the range of price.
-b. Optional parameters to filter books based on the range of publication time.
-c. Optional parameters to filter and return a list of books for other columns.
-You can choose one of the columns to reduce time.
-3. Create a book:
-Add a new book.
-4. Update a book:
-
-BE Dev - Bookstore Inventory Management System 3
-
-Update the details of a specific book.
-5. Delete a book by id:
-Delete a book from the inventory.
-'''
 @app.route('/book')
 def get_book():
     id = request.args.get('id')
@@ -49,15 +30,6 @@ def get_book():
     print(vars(books[0]))
     return jsonify(books[0].to_dict())
 
-'''
-    id = db.Column(db.Integer,auto_increment=True, primary_key=True)
-    title = db.Column(db.String(255), nullable=False)
-    isbn = db.Column(db.String(255), unique=True, nullable=False)
-    publication_time = db.Column(db.DateTime)
-    genre = db.Column(db.String(255))
-    price = db.Column(db.Float())
-    quantity = db.Column(db.Integer())
-'''
 @app.route('/search')
 def search_books():
     req=request.args
